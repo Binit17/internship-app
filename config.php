@@ -5,9 +5,9 @@ included at the beginning of the other PHP files. -->
 <?php
 //database configuration
 $servername = "localhost";
-$username = "username";
-$password = "our-password";
-$database = "database_name";
+$username = "gautam";
+$password = "gautam";
+$database = "intern_app";
 
 //create database connection
 $conn = mysqli_connect($servername, $username, $password, $database );

@@ -55,7 +55,7 @@
           <!-- <li><a href="#about">About</a></li> -->
           <!-- <li><a href="#services">Services</a></li> -->
           <!-- <li><a href="#portfolio">Portfolio</a></li> -->
-          <li><a href="#team">LOGIN</a></li>
+          <li><a href="login.php">LOGIN</a></li>
           <li><a href="blog.html">SIGN-UP</a></li>
           <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
@@ -94,7 +94,7 @@
           <p>esma keii lekhna parxa paxi samjinu...................................................</p>
         </div>
         <div class="col-lg-6 order-1 order-lg-2">
-          <img src="assets/img/hero-img.svg" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
+          <img src="assets/img/pulchowk.jpg" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
         </div>
       </div>
     </div>

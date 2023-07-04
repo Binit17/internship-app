@@ -1,0 +1,5 @@
+this is a file where I will keep log of how I created a database
+first i opened the terminal then to start mysql server, 
+
+/opt/lampp/bin/mysql -u root
+
