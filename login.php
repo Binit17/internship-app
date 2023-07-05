@@ -1,5 +1,9 @@
 <?php
 session_start(); //start session
+
+//error finding
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 //include the database configuration file
 require_once 'config.php';
 
@@ -11,8 +15,8 @@ if($_SERVER['REQUEST_METHOD']==='POST')
     $password = $_POST['password'];
 
 //query to check if the username and password match.
-    $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-    $result = mysqli_query($conn, $sql);
+    $sql1 = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+    $result = mysqli_query($conn, $sql1);
 
     if(mysqli_num_rows($result)==1)
     {
@@ -22,6 +26,11 @@ if($_SERVER['REQUEST_METHOD']==='POST')
         $_SESSION['user_id'] = $row['user_id'];
         $_SESSION['username'] = $row['username'];
         $_SESSION['role'] = $row['role'];
+        $tempvariable=$_SESSION['user_id'];
+        $sql2 = "SELECT * FROM students WHERE user_id = '$tempvariable'";
+        $result2 = mysqli_query($conn, $sql2);
+        $row2=mysqli_fetch_assoc($result2);
+        $_SESSION['student_id'] = $row2['student_id'];
 
         if($_SESSION['role'] == 'student')
         {
@@ -51,6 +60,8 @@ if($_SERVER['REQUEST_METHOD']==='POST')
 </head>
 <body>
 <h2>Login</h2>
+    <?php echo $_SESSION['user_id']; ?>
+    <?php echo $_SESSION['student_id'];?>
     <?php if (isset($error)) { ?>
         <p><?php echo $error; ?></p>
     <?php } ?>

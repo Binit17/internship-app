@@ -1,6 +1,5 @@
 
 <?php
-
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -22,7 +21,7 @@ if(!isset($_GET['internship_id']))
     exit();
 }
 
-$student_id = $_SESSION['user_id'];
+$student_id = $_SESSION['student_id'];
 $internship_id = $_GET['internship_id'];
 // $application_date = date("y-m-d");
 $status = "pending";
