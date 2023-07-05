@@ -35,10 +35,13 @@ $internships = mysqli_fetch_all($result, MYSQLI_ASSOC);
                     <p><?php echo $internship['description']; ?></p>
                     <p>Start Date: <?php echo $internship['start_date']; ?></p>
                     <p>End Date: <?php echo $internship['end_date']; ?></p>
-                    <form method="POST" action="apply.php">
-                        <input type="hidden" name="internship_id" value="<?php echo $internship['internship_id']; ?>">
+                    <!-- <form method="POST" action="apply.php">
+                        <input type="hidden" name="internship_id" value="<?php //echo $internship['internship_id']; ?>">
                         <button type="submit">Apply</button>
-                    </form>
+                    </form> -->
+                    <!-- Link to apply.php -->
+                    <p>internship_id: <?php echo $internship['internship_id']; ?></p>
+                    <a href="apply.php?internship_id=<?php echo $internship['internship_id']; ?>">Apply</a>
                 </li>
             <?php } ?>
         </ul>
