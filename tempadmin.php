@@ -1,10 +1,13 @@
 <?php
 session_start();
+//error handling.
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 // Include the database configuration file
 require_once 'config.php';
 
-// Check if the user is logged in as an admin
+//check if the user is logged in as an admin
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit();
@@ -19,7 +22,8 @@ $sql = "SELECT applications.*, students.name, internships.title
 $result = mysqli_query($conn, $sql);
 $applications = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-// Process form submission to update application status
+
+// yo chai student le apply garisake paxi, approve,disapprove garna ko lagi.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['application_id']) && isset($_POST['status'])) {
         $application_id = $_POST['application_id'];
@@ -34,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-?>
 
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,7 +85,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </table>
     <br>
     <a href="logout.php">Logout</a>
-    <br>
-    <a href="add_internship.php">Add New Internship</a>
 </body>
 </html>
