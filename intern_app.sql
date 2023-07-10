@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 05, 2023 at 04:19 PM
+-- Generation Time: Jul 10, 2023 at 04:49 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -41,7 +41,9 @@ CREATE TABLE `applications` (
 
 INSERT INTO `applications` (`application_id`, `student_id`, `internship_id`, `application_date`, `status`) VALUES
 (18, 2, 1, '2023-07-05 06:54:17', 'pending'),
-(19, 3, 1, '2023-07-05 14:06:30', 'approved');
+(19, 3, 1, '2023-07-05 14:06:30', 'approved'),
+(20, 4, 1, '2023-07-09 08:43:11', 'pending'),
+(21, 2, 2, '2023-07-10 12:25:50', 'pending');
 
 -- --------------------------------------------------------
 
@@ -66,7 +68,8 @@ CREATE TABLE `internships` (
 
 INSERT INTO `internships` (`internship_id`, `admin_id`, `title`, `company_name`, `description`, `start_date`, `end_date`, `status`) VALUES
 (1, NULL, 'backend engineer', 'leapfrog', 'we need a backend engineer who is fluent in python, django', '2023-07-01', '2023-07-31', 'open'),
-(2, NULL, 'frontend engineer', 'naamche', 'we need a frontend engineer who is fluent in html,css , react and js', '2023-07-02', '2023-07-24', 'open');
+(2, NULL, 'frontend engineer', 'naamche', 'we need a frontend engineer who is fluent in html,css , react and js', '2023-07-02', '2023-07-24', 'open'),
+(3, 4, 'php backend engineer', 'Bhoos', 'this is the internships for interested students who have basic knowledge of webdev and php programming language', '2023-07-10', '2023-07-31', 'open');
 
 -- --------------------------------------------------------
 
@@ -95,7 +98,8 @@ CREATE TABLE `students` (
 
 INSERT INTO `students` (`student_id`, `user_id`, `name`, `email`, `phone`, `gender`, `skills`, `department`, `dob`, `status`, `year_of_study`, `created_at`) VALUES
 (2, 3, 'Binit', 'binitkc17@gmail.com', '9813277080', 'male', 'none', 'computer', '2003-04-30', 'available', '2077', '2023-07-05 06:28:43'),
-(3, 5, 'bishal', 'bishal123@gmail.com', '9876543210', 'male', 'master in all skills', 'computer', '2002-09-09', 'available', '2077', '2023-07-05 14:05:29');
+(3, 5, 'bishal', 'bishal123@gmail.com', '9876543210', 'male', 'master in all skills', 'computer', '2002-09-09', 'available', '2077', '2023-07-05 14:05:29'),
+(4, 6, 'anil paudel', 'anil123@gmail.com', '9876543212', 'male', 'master in all tech stack', 'computer', '2004-07-15', 'available', '2076', '2023-07-09 08:42:41');
 
 -- --------------------------------------------------------
 
@@ -117,7 +121,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`user_id`, `username`, `password`, `role`) VALUES
 (3, 'binit', 'binit', 'student'),
 (4, 'admin', 'admin', 'admin'),
-(5, 'bishal', 'bishal', 'student');
+(5, 'bishal', 'bishal', 'student'),
+(6, 'anil', 'anil', 'student');
 
 --
 -- Indexes for dumped tables
@@ -159,25 +164,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `internships`
 --
 ALTER TABLE `internships`
-  MODIFY `internship_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `internship_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
