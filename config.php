@@ -5,8 +5,8 @@ included at the beginning of the other PHP files. -->
 <?php
 //database configuration
 $servername = "localhost";
-$username = "gautam";
-$password = "gautam";
+$username = "root";
+$password = "";
 $database = "intern_app";
 
 //create database connection
