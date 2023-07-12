@@ -40,6 +40,78 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Admin - Internship Applications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('grad0.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333333;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333333;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        select {
+            padding: 5px;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <h2>Internship Applications</h2>
@@ -79,9 +151,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </tr>
         <?php } ?>
     </table>
-    <br>
     <a href="logout.php">Logout</a>
     <br>
-    <a href="add_internship.php">Add New Internship</a>
-</body>
-</html>
+    <a href="add_internship.php">Add New Internship</a
