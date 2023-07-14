@@ -75,8 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <button type="submit">Update</button>
                     </form>
                 </td>
-                <td><a href="profile.php?student_id=<?php echo $application['student_id']; ?>">View Profile</a></td>
-            </tr>
+                <td><a href="profile.php?student_id=<?php echo $application['student_id']; ?>">View Profile</a></td>            </tr>
         <?php } ?>
     </table>
     <br>
