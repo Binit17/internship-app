@@ -40,7 +40,7 @@ if($_SERVER['REQUEST_METHOD']==='POST')
         elseif($_SESSION['role'] == 'admin')
         {
             //redirect to admin dashboard
-            header("location: admin.php");
+            header("location: admin_dashboard.php");
         }
     }
     else

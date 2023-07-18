@@ -10,6 +10,12 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
     exit();
 }
 
+//check if the user is logged in as a student.
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
+    header("Location: login.php");
+    exit();
+}
+
 // Check if the student_id is provided
 if (!isset($_GET['student_id'])) {
     header("Location: admin.php");

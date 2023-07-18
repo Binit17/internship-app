@@ -65,6 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit">Add Internship</button>
     </form>
     <br>
-    <a href="admin.php">Back to Internship Applications</a>
+    <a href="admin_dashboard.php">Back to Dashboard</a>
 </body>
 </html>

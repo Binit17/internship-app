@@ -1,3 +1,24 @@
+<?php
+session_start();
+
+// Include the database configuration file
+require_once 'config.php';
+
+// Check if the user is logged in as a student
+
+//here i have switched from user_id to my own created student_id . error aairathyo pahila.
+if (!isset($_SESSION['student_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
+    header("Location: login.php");
+    exit();
+}
+
+// Fetch the student's information from the database
+$student_id = $_SESSION['student_id'];
+$sql = "SELECT * FROM students WHERE student_id = '$student_id'";
+$result = mysqli_query($conn, $sql);
+$student = mysqli_fetch_assoc($result);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,12 +72,13 @@
       </a>
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="index.php">Home</a></li>
+          <li><a href="student_dashboard.php">Home</a></li>
           <!-- <li><a href="#about">About</a></li> -->
           <!-- <li><a href="#services">Services</a></li> -->
           <!-- <li><a href="#portfolio">Portfolio</a></li> -->
-          <li><a href="login.php">LOGIN</a></li>
-          <li><a href="blog.html">SIGN-UP</a></li>
+          <li><a href="internships.php">View Internships</a></li>
+          <li><a href="profile.php">Profile</a></li>
+          <li><a href="logout.php">Logout</a></li>
           <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
@@ -90,9 +112,8 @@
     <div class="container position-relative">
       <div class="row gy-5" data-aos="fade-in">
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-center text-lg-start">
-          <h2>WELCOME TO HOMEPAGE</h2>
-          <p>esma keii lekhna parxa paxi samjinu...................................................</p>
-        </div>
+          <h2>Internship Management System</h2>
+          <h1>Welcome <?php echo $student['name']; ?> to the Student Dashboard</h1>        </div>
         <div class="col-lg-6 order-1 order-lg-2">
           <img src="assets/img/pulchowk.jpg" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
         </div>
@@ -129,7 +150,7 @@
               <div class="icon"><i class="bi bi-command"></i></div>
               <h4 class="title"><a href="" class="stretched-link">function 4</a></h4>
             </div>
-          </div><!--End Icon Box -->
+          <!-- </div>End Icon Box -->
 
         </div>
       </div>
