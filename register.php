@@ -1,8 +1,7 @@
 <?php
 require_once 'config.php';
 
-if($_SERVER['REQUEST_METHOD'] === 'POST')
-{
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $name = $_POST['name'];
@@ -16,28 +15,39 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     $year_of_study = $_POST['year_of_study'];
     $role = $_POST['role'];
 
-    // Insert into Users table
-    $userQuery = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
-    $userStmt = $conn->prepare($userQuery);
-    $userStmt->bind_param('sss', $username, $password, $role);
-    $userStmt->execute();
+    // Check if the username already exists in the database
+    $checkQuery = "SELECT * FROM users WHERE username = (?)";
+    $checkStmt = $conn->prepare($checkQuery);
+    $checkStmt->bind_param('s', $username);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
 
-    // Get the generated user_id
-    $user_id = $userStmt->insert_id;
+    if ($checkResult->num_rows > 0) {
+        $error = "Username already exists. Please choose a different username.";
+    } else {
+        // Insert into Users table
+        $userQuery = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+        $userStmt = $conn->prepare($userQuery);
+        $userStmt->bind_param('sss', $username, $password, $role);
+        $userStmt->execute();
 
-     // Insert into Students table
-     $studentQuery = "INSERT INTO students (user_id, name, email, phone, gender, skills, department, dob, status, year_of_study)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $studentStmt = $conn->prepare($studentQuery);
-    $studentStmt->bind_param('isssssssss', $user_id, $name, $email, $phone, $gender, $skills, $department, $dob, $status, $year_of_study);
-    $studentStmt->execute();
+        // Get the generated user_id
+        $user_id = $userStmt->insert_id;
 
-    // Redirect to login page with success message
-    header('Location: login.php?registration=success');
-    exit();
+        // Insert into Students table
+        $studentQuery = "INSERT INTO students (user_id, name, email, phone, gender, skills, department, dob, status, year_of_study)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $studentStmt = $conn->prepare($studentQuery);
+        $studentStmt->bind_param('isssssssss', $user_id, $name, $email, $phone, $gender, $skills, $department, $dob, $status, $year_of_study);
+        $studentStmt->execute();
+
+        // Redirect to login page with success message
+        header('Location: login.php?registration=success');
+        exit();
+    }
 }
-
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,6 +55,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 </head>
 <body>
     <h2>Register</h2>
+    <?php if (isset($error)) { ?>
+        <p><?php echo $error; ?></p>
+    <?php } ?>
     <form method="POST" action="">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br>
