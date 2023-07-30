@@ -87,3 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a href="logout.php">Logout</a>
 </body>
 </html>
+// Check if the username already exists in the database
+    $checkQuery = "SELECT * FROM users WHERE username = $username ";
+    // $checkStmt = $conn->prepare($checkQuery);
+    $checkStmt->bind_param('s', $username);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+
+    if ($checkResult->num_rows > 0) {
+        $error = "Username already exists. Please choose a different username.";
+    } 

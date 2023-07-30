@@ -32,7 +32,7 @@ $internships = mysqli_fetch_all($result, MYSQLI_ASSOC);
                     <p><?php echo $internship['description']; ?></p>
                     <p>Start Date: <?php echo $internship['start_date']; ?></p>
                     <p>End Date: <?php echo $internship['end_date']; ?></p>
-                    <form method="POST" action="apply.php">
+                    <form method="POST" action="confirmation.php">
                         <input type="hidden" name="internship_id" value="<?php echo $internship['internship_id']; ?>">
                         <button type="submit">Apply</button>
                     </form>

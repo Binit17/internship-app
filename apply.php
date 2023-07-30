@@ -15,14 +15,14 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
 }
 
 //check if the internship_id is provided
-if(!isset($_GET['internship_id'])) 
+if(!isset($_POST['internship_id'])) 
 {
     header('location: index.php');
     exit();
 }
 
 $student_id = $_SESSION['student_id'];
-$internship_id = $_GET['internship_id'];
+$internship_id = $_POST['internship_id'];
 // $application_date = date("y-m-d");
 $status = "pending";
 
