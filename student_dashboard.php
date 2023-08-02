@@ -77,7 +77,7 @@ $student = mysqli_fetch_assoc($result);
           <!-- <li><a href="#services">Services</a></li> -->
           <!-- <li><a href="#portfolio">Portfolio</a></li> -->
           <li><a href="internships.php">View Internships</a></li>
-          <li><a href="profile.php">Profile</a></li>
+          <li><a href="editprofile.php">Profile</a></li>
           <li><a href="logout.php">Logout</a></li>
           <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
