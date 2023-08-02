@@ -28,75 +28,88 @@ if (isset($_GET['student_id'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin - Student Profile</title>
+    <title>Student Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        h2 {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .profile-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .profile-picture {
+            margin-right: 20px;
+        }
+
+        .profile-details {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .profile-details h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .profile-details p {
+            margin: 0;
+        }
+
+        .profile-details strong {
+            font-weight: bold;
+        }
+
+        .cv-image {
+            display: block;
+            width: 50%;
+            margin-top: 20px;
+            margin: 0 auto;
+        }
+
+        .go-back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <h2>Student Profile</h2>
-    <table>
-        <tr>
-            <th>Attribute</th>
-            <th>Value</th>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td><?php echo $student['name']; ?></td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td><?php echo $student['email']; ?></td>
-        </tr>
-        <tr>
-            <td>Phone</td>
-            <td><?php echo $student['phone']; ?></td>
-        </tr>
-        <tr>
-            <td>Gender</td>
-            <td><?php echo $student['gender']; ?></td>
-        </tr>
-        <tr>
-            <td>Skills</td>
-            <td><?php echo $student['skills']; ?></td>
-        </tr>
-        <tr>
-            <td>Department</td>
-            <td><?php echo $student['department']; ?></td>
-        </tr>
-        <tr>
-            <td>Date of Birth</td>
-            <td><?php echo $student['dob']; ?></td>
-        </tr>
-        <tr>
-            <td>Status</td>
-            <td><?php echo $student['status']; ?></td>
-        </tr>
-        <tr>
-            <td>Year of Study</td>
-            <td><?php echo $student['year_of_study']; ?></td>
-        </tr>
-        <tr>
-            <td>Profile Picture</td>
-            <td>
-                <?php if (!empty($student['profile_picture'])): ?>
-                    <img src="<?php echo $student['profile_picture']; ?>" alt="Profile Picture" width="150">
-                <?php else: ?>
-                    No profile picture available
-                <?php endif; ?>
-            </td>
-        </tr>
-        <tr>
-            <td>CV</td>
-            <td>
-                <?php if (!empty($student['cv'])): ?>
-                    <img src="<?php echo $student['cv']; ?>" alt="CV" width="100%">
-                <?php else: ?>
-                    No CV available
-                <?php endif; ?>
-            </td>
-        </tr>
-    </table>
-    <br>
-    <a href="admin.php">Back to Internship Applications</a>
-    <br>
-    <a href="logout.php">Logout</a>
+    <div class="profile-info">
+        <div class="profile-picture">
+            <img src="<?php echo $student['profile_picture']; ?>" alt="Profile Picture" width="200">
+        </div>
+        <div class="profile-details">
+            <h3>Name: <strong><?php echo $student['name']; ?></strong></h3>
+            <p>Email: <?php echo $student['email']; ?></p>
+            <p>Phone: <?php echo $student['phone']; ?></p>
+            <p>Gender: <?php echo ucfirst($student['gender']); ?></p>
+            <p>Department: <?php echo $student['department']; ?></p>
+            <p>Date of Birth: <?php echo $student['dob']; ?></p>
+            <p>Status: <?php echo ucfirst($student['status']); ?></p>
+            <p>Year of Study: <?php echo $student['year_of_study']; ?></p>
+        </div>
+    </div>
+
+    <?php if (!empty($student['cv'])) { ?>
+        <h3>CV</h3>
+        <img class="cv-image" src="<?php echo $student['cv']; ?>" alt="CV" width = "100">
+        
+    <?php } ?>
+
+    <div class="go-back-link">
+        <a href="admin.php">Go Back to Applications</a>
+    </div>
 </body>
 </html>
+

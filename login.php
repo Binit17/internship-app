@@ -2,8 +2,8 @@
 session_start(); //start session
 
 //error finding
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 //include the database configuration file
 require_once 'config.php';
 
@@ -37,6 +37,11 @@ if($_SERVER['REQUEST_METHOD']==='POST')
             //redirect to student dashboard.
             header("location: index.php");
         }
+        elseif($_SESSION['role'] == 'company')
+        {
+            //redirect to company dashboard
+            header("location: company_dashboard.php");
+        }
         elseif($_SESSION['role'] == 'admin')
         {
             //redirect to admin dashboard
@@ -56,20 +61,91 @@ if($_SERVER['REQUEST_METHOD']==='POST')
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN</title>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('grad0.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            margin-top: 150px; /* Adjust the value to center vertically */
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333333;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .error {
+            color: #FF0000;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-<h2>Login</h2>
-    <?php echo $_SESSION['user_id']; ?>
-    <?php echo $_SESSION['student_id'];?>
-    <?php if (isset($error)) { ?>
-        <p><?php echo $error; ?></p>
-    <?php } ?>
-    <form method="POST" action="">
-        <input type="text" name="username" placeholder="Username" required><br>
-        <input type="password" name="password" placeholder="Password" required><br>
-        <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="register.php">Register</a></p>
+    <div class="container">
+        <h2>Login</h2>
+        <?php if (isset($error)) { ?>
+            <p class="error"><?php echo $error; ?></p>
+        <?php } ?>
+        <form method="POST" action="">
+            <input type="text" name="username" placeholder="Username" required><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <br><br><a href="register.php">Register as a student</a></p>
+        <p><a href="registrationforcompany.php">Register as a company</a></p>
+    </div>
+
+    <script>
+        // Add JavaScript effects here if needed
+    </script>
 </body>
 </html>

@@ -24,11 +24,71 @@ $appliedInternshipIds = array_column($applications, 'internship_id');
 $applicationStatus = array_column($applications, 'status');
 
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Internship List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            margin: 0;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .applied {
+            font-weight: bold;
+            color: #4caf50;
+        }
+
+        .not-applied {
+            font-weight: bold;
+            color: #ff5722;
+        }
+
+        .no-internships {
+            text-align: center;
+            font-weight: bold;
+            color: #ff5722;
+        }
+    </style>
 </head>
 <body>
     <h2>Internship List</h2>
@@ -45,7 +105,11 @@ $applicationStatus = array_column($applications, 'status');
                     <p>Salary: <?php echo $internship['salary']; ?></p>
                     <p>Location: <?php echo $internship['location']; ?></p>
                     <?php if (in_array($internship['internship_id'], $appliedInternshipIds)) { ?>
-                        <p>You have already applied for this internship. Status: <?php echo $applicationStatus[$key]; ?></p>
+                        <?php if ($applicationStatus[$key] === 'pending') { ?>
+                            <p class="applied">You have already applied for this internship. Status: <?php echo $applicationStatus[$key]; ?></p>
+                        <?php } else { ?>
+                            <p class="applied">Congratulations! Your application for this internship is <?php echo $applicationStatus[$key]; ?>.</p>
+                        <?php } ?>
                     <?php } else { ?>
                         <form method="POST" action="confirmation.php">
                             <input type="hidden" name="internship_id" value="<?php echo $internship['internship_id']; ?>">
@@ -56,11 +120,13 @@ $applicationStatus = array_column($applications, 'status');
             <?php } ?>
         </ul>
     <?php } else { ?>
-        <p>No internships available at the moment.</p>
+        <p class="no-internships">No internships available at the moment.</p>
     <?php } ?>
     <br>
-    <a href="student_dashboard.php">Back to Dashboard</a>
-    <br>
-    <a href="logout.php">Logout</a>
+    <div style="text-align: center;">
+        <a href="student_dashboard.php">Back to Dashboard</a>
+        <br>
+        <a href="logout.php">Logout</a>
+    </div>
 </body>
 </html>

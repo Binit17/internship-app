@@ -88,69 +88,161 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $student = mysqli_fetch_assoc($result);
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <!-- Add your head content here, like title, CSS, etc. -->
-</head>
+    <title>Edit Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
 
+        header {
+            background-color: #008374; /* Change this to your desired green color */
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="file"] {
+            margin-top: 5px;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            color: green;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .error {
+            color: red;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
 <body>
     <header>
         <h1>Edit Profile</h1>
         <a href="student_dashboard.php">Back to Dashboard</a>
     </header>
-  <!-- Your HTML form here to display the profile details and allow editing -->
-  <form action="editprofile.php" method="post" enctype="multipart/form-data">
-    <label for="name">Name:</label>
-    <input type="text" name="name" id="name" value="<?php echo $student['name']; ?>"><br>
+    <div class="container">
+        <form action="editprofile.php" method="post" enctype="multipart/form-data">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" value="<?php echo $student['name']; ?>">
 
-    <label for="email">Email:</label>
-    <input type="email" name="email" id="email" value="<?php echo $student['email']; ?>"><br>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" value="<?php echo $student['email']; ?>">
 
-    <label for="phone">Phone:</label>
-    <input type="text" name="phone" id="phone" value="<?php echo $student['phone']; ?>"><br>
+            <label for="phone">Phone:</label>
+            <input type="text" name="phone" id="phone" value="<?php echo $student['phone']; ?>">
 
-    <label for="gender">Gender:</label>
-    <select name="gender" id="gender">
-      <option value="male" <?php if ($student['gender'] === 'male') echo 'selected'; ?>>Male</option>
-      <option value="female" <?php if ($student['gender'] === 'female') echo 'selected'; ?>>Female</option>
-      <option value="other" <?php if ($student['gender'] === 'other') echo 'selected'; ?>>Other</option>
-    </select><br>
+            <label for="gender">Gender:</label>
+            <select name="gender" id="gender">
+                <option value="male" <?php if ($student['gender'] === 'male') echo 'selected'; ?>>Male</option>
+                <option value="female" <?php if ($student['gender'] === 'female') echo 'selected'; ?>>Female</option>
+                <option value="other" <?php if ($student['gender'] === 'other') echo 'selected'; ?>>Other</option>
+            </select>
 
-    <label for="skills">Skills:</label>
-    <textarea name="skills" id="skills"><?php echo $student['skills']; ?></textarea><br>
+            <label for="skills">Skills:</label>
+            <textarea name="skills" id="skills"><?php echo $student['skills']; ?></textarea>
 
-    <label for="department">Department:</label>
-    <input type="text" name="department" id="department" value="<?php echo $student['department']; ?>"><br>
+            <label for="department">Department:</label>
+            <input type="text" name="department" id="department" value="<?php echo $student['department']; ?>">
 
-    <label for="dob">Date of Birth:</label>
-    <input type="date" name="dob" id="dob" value="<?php echo $student['dob']; ?>"><br>
+            <label for="dob">Date of Birth:</label>
+            <input type="date" name="dob" id="dob" value="<?php echo $student['dob']; ?>">
 
-    <label for="year_of_study">Year of Study:</label>
-    <input type="text" name="year_of_study" id="year_of_study" value="<?php echo $student['year_of_study']; ?>"><br>
+            <label for="year_of_study">Year of Study:</label>
+            <input type="text" name="year_of_study" id="year_of_study" value="<?php echo $student['year_of_study']; ?>">
 
-    <!-- Add form fields for profile picture and CV uploads -->
-    <label for="profile_picture">Profile Picture:</label>
-    <input type="file" name="profile_picture" id="profile_picture"><br>
+            <!-- Add form fields for profile picture and CV uploads -->
+            <label for="profile_picture">Profile Picture:</label>
+            <input type="file" name="profile_picture" id="profile_picture">
 
-    <label for="cv">CV:</label>
-    <input type="file" name="cv" id="cv"><br>
-    <!-- End of form fields for profile picture and CV uploads -->
+            <label for="cv">CV:</label>
+            <input type="file" name="cv" id="cv">
+            <!-- End of form fields for profile picture and CV uploads -->
 
-    <input type="submit" value="Save Changes">
-  </form>
+            <input type="submit" value="Save Changes">
+        </form>
 
-  <!-- Display success message or error message, if any -->
-  <?php if (isset($message)): ?>
-    <p><?php echo $message; ?></p>
-  <?php endif; ?>
+        <!-- Display success message or error message, if any -->
+        <?php if (isset($message)): ?>
+            <p><?php echo $message; ?></p>
+        <?php endif; ?>
 
-  <?php if (isset($error)): ?>
-    <p><?php echo $error; ?></p>
-  <?php endif; ?>
-
+        <?php if (isset($error)): ?>
+            <p class="error"><?php echo $error; ?></p>
+        <?php endif; ?>
+    </div>
 </body>
-
 </html>

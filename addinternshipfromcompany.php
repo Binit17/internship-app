@@ -1,20 +1,54 @@
 <?php
 session_start();
 
+//error finding
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 // Include the database configuration file
 require_once 'config.php';
 
-// Check if the user is logged in as an admin
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+// Check if the user is logged in as a company
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'company') {
     header("Location: login.php");
     exit();
 }
+// Get the company name associated with the user_id
+$company_id = $_SESSION['user_id'];
+$getCompanyQuery = "SELECT name FROM company WHERE user_id = ?";
+$getCompanyStmt = $conn->prepare($getCompanyQuery);
+$getCompanyStmt->bind_param('i', $company_id);
+$getCompanyStmt->execute();
+$companyResult = $getCompanyStmt->get_result();
+///
+///
+///
+///
+///
+/// SINCE USER_ID AND COMPANY_ID ARE DIFFERENT, I HAD TO BRING UP THE COMPANY_ID MYSELF.
+$sql = "SELECT company_id FROM company WHERE user_id= '$company_id'";
+$result = mysqli_query($conn, $sql);
+$row2=mysqli_fetch_assoc($result);
+$_SESSION['company_id'] = $row2['company_id'];
+///
+///
+///
+///
+///
+///
+///
+
+if ($companyResult->num_rows !== 1) {
+    // If the company name is not found, handle the error as per your requirement
+    exit("Error: Company name not found.");
+}
+
+$companyRow = $companyResult->fetch_assoc();
+$company_name = $companyRow['name'];
 
 // Process the form submission to add a new internship
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['title']) && isset($_POST['company_name']) && isset($_POST['description']) && isset($_POST['start_date']) && isset($_POST['end_date']) && isset($_POST['duration']) && isset($_POST['salary']) && isset($_POST['location'])) {
+    if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['start_date']) && isset($_POST['end_date']) && isset($_POST['duration']) && isset($_POST['salary']) && isset($_POST['location'])) {
         $title = $_POST['title'];
-        $company_name = $_POST['company_name'];
         $description = $_POST['description'];
         $start_date = $_POST['start_date'];
         $end_date = $_POST['end_date'];
@@ -23,10 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $location = $_POST['location'];
         $status = 'open';
 
-        // Insert the new internship into the database
-        $insertSql = "INSERT INTO internships (admin_id, title, company_name, description, start_date, end_date, duration, salary, location, status)
-                      VALUES ('{$_SESSION['user_id']}', '$title', '$company_name', '$description', '$start_date', '$end_date', '$duration', '$salary', '$location', '$status')";
+        // Get the user_id of the company from the session
+        $company_id = $_SESSION['user_id'];
 
+        // Insert the new internship into the database
+        //$insertSql = "INSERT INTO internships (company_id, title,company_name, description, start_date, end_date, duration, salary, location, status)
+        //              VALUES ('$company_id', '$title', '$company_name' '$description', '$start_date', '$end_date', '$duration', '$salary', '$location', '$status')";
+        $insertSql = "INSERT INTO internships (admin_id, title, company_name, description, start_date, end_date, duration, salary, location, status,company_id)
+                      VALUES ('4', '$title', '$company_name', '$description', '$start_date', '$end_date', '$duration', '$salary', '$location', '$status','{$_SESSION['company_id']}')";
         if (mysqli_query($conn, $insertSql)) {
             $message = "New internship added successfully.";
         } else {
@@ -117,9 +155,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" required>
         <br>
-        <label for="company_name">Company Name:</label>
-        <input type="text" id="company_name" name="company_name" required>
-        <br>
         <label for="description">Description:</label>
         <textarea id="description" name="description" required></textarea>
         <br>
@@ -140,6 +175,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <br>
         <button type="submit">Add Internship</button>
     </form>
-    <a href="admin_dashboard.php">Back to Dashboard</a>
+    <a href="company_dashboard.php">Back to Dashboard</a>
 </body>
 </html>
