@@ -12,17 +12,20 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
 
 // Process the form submission to add a new internship
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['title']) && isset($_POST['company_name']) && isset($_POST['description']) && isset($_POST['start_date']) && isset($_POST['end_date'])) {
+    if (isset($_POST['title']) && isset($_POST['company_name']) && isset($_POST['description']) && isset($_POST['start_date']) && isset($_POST['end_date']) && isset($_POST['duration']) && isset($_POST['salary']) && isset($_POST['location'])) {
         $title = $_POST['title'];
         $company_name = $_POST['company_name'];
         $description = $_POST['description'];
         $start_date = $_POST['start_date'];
         $end_date = $_POST['end_date'];
+        $duration = $_POST['duration'];
+        $salary = $_POST['salary'];
+        $location = $_POST['location'];
         $status = 'open';
 
         // Insert the new internship into the database
-        $insertSql = "INSERT INTO internships (admin_id, title, company_name, description, start_date, end_date, status)
-                      VALUES ('{$_SESSION['user_id']}', '$title', '$company_name', '$description', '$start_date', '$end_date', '$status')";
+        $insertSql = "INSERT INTO internships (admin_id, title, company_name, description, start_date, end_date, duration, salary, location, status)
+                      VALUES ('{$_SESSION['user_id']}', '$title', '$company_name', '$description', '$start_date', '$end_date', '$duration', '$salary', '$location', '$status')";
 
         if (mysqli_query($conn, $insertSql)) {
             $message = "New internship added successfully.";
@@ -61,6 +64,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <br>
         <label for="end_date">End Date:</label>
         <input type="date" id="end_date" name="end_date" required>
+        <br>
+        <label for="duration">Duration:</label>
+        <input type="text" id="duration" name="duration" required>
+        <br>
+        <label for="salary">Salary:</label>
+        <input type="text" id="salary" name="salary" required>
+        <br>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
         <br>
         <button type="submit">Add Internship</button>
     </form>
