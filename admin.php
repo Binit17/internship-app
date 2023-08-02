@@ -40,6 +40,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Admin - Internship Applications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        h2 {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .status-update-form {
+            display: inline-block;
+        }
+
+        .view-profile-link {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .view-profile-link a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        .view-profile-link a:hover {
+            text-decoration: underline;
+        }
+
+        .logout-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .add-internship-link {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <h2>Internship Applications</h2>
@@ -65,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <td><?php echo $application['title']; ?></td>
                 <td><?php echo $application['application_date']; ?></td>
                 <td>
-                    <form method="POST" action="">
+                    <form class="status-update-form" method="POST" action="">
                         <input type="hidden" name="application_id" value="<?php echo $application['application_id']; ?>">
                         <select name="status">
                             <option value="pending" <?php if ($application['status'] === 'pending') echo 'selected'; ?>>Pending</option>
@@ -75,12 +136,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <button type="submit">Update</button>
                     </form>
                 </td>
-                <td><a href="profile.php?student_id=<?php echo $application['student_id']; ?>">View Profile</a></td>            </tr>
+                <td class="view-profile-link">
+                    <a href="profile.php?student_id=<?php echo $application['student_id']; ?>">View Profile</a>
+                </td>
+            </tr>
         <?php } ?>
     </table>
-    <br>
-    <a href="logout.php">Logout</a>
-    <br>
-    <a href="add_internship.php">Add New Internship</a>
+    <div class="logout-link">
+        <a href="logout.php">Logout</a>
+    </div>
+    <div class="add-internship-link">
+        <a href="add_internship.php">Add New Internship</a>
+    </div>
 </body>
 </html>
+
