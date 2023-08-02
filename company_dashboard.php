@@ -45,6 +45,7 @@ if ($companyResult->num_rows > 0) {
     <ul>
         <li><a href="internshipsfromcompany.php">View Internships</a></li>
         <li><a href="addinternshipfromcompany.php">Add New Internship</a></li>
+        <li><a href="viewapplication.php">View Internship Applications</a></li>
     </ul>
 
     <br>

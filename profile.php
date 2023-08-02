@@ -4,8 +4,8 @@ session_start();
 // Include the database configuration file
 require_once 'config.php';
 
-// Check if the user is logged in as an admin
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+// Check if the user is logged in as an admin or company.
+if (!isset($_SESSION['user_id']) || (!isset($_SESSION['role']) || ($_SESSION['role'] !== 'admin' && $_SESSION['role'] !== 'company'))) {
     header("Location: login.php");
     exit();
 }
@@ -15,12 +15,19 @@ if (isset($_GET['student_id'])) {
     $student_id = $_GET['student_id'];
 
     // Fetch the student's information from the database
-    $sql = "SELECT * FROM students WHERE student_id = '$student_id'";
-    $result = mysqli_query($conn, $sql);
-    $student = mysqli_fetch_assoc($result);
+    $sql = "SELECT * FROM students WHERE student_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $student_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $student = $result->fetch_assoc();
 } else {
-    // Redirect back to admin.php if student_id is not provided
-    header("Location: admin.php");
+    // Redirect back to the appropriate dashboard based on user role if student_id is not provided
+    if ($_SESSION['role'] === 'admin') {
+        header("Location: admin_dashboard.php");
+    } elseif ($_SESSION['role'] === 'company') {
+        header("Location: company_dashboard.php");
+    }
     exit();
 }
 ?>
@@ -93,22 +100,31 @@ if (isset($_GET['student_id'])) {
             <h3>Name: <strong><?php echo $student['name']; ?></strong></h3>
             <p>Email: <?php echo $student['email']; ?></p>
             <p>Phone: <?php echo $student['phone']; ?></p>
-            <p>Gender: <?php echo ucfirst($student['gender']); ?></p>
-            <p>Department: <?php echo $student['department']; ?></p>
-            <p>Date of Birth: <?php echo $student['dob']; ?></p>
-            <p>Status: <?php echo ucfirst($student['status']); ?></p>
-            <p>Year of Study: <?php echo $student['year_of_study']; ?></p>
+            <?php if ($_SESSION['role'] === 'admin') { ?>
+                <!-- Display additional information for admin -->
+                <p>Gender: <?php echo ucfirst($student['gender']); ?></p>
+                <p>Department: <?php echo $student['department']; ?></p>
+                <p>Date of Birth: <?php echo $student['dob']; ?></p>
+                <p>Status: <?php echo ucfirst($student['status']); ?></p>
+                <p>Year of Study: <?php echo $student['year_of_study']; ?></p>
+            <?php } ?>
         </div>
     </div>
 
     <?php if (!empty($student['cv'])) { ?>
-        <h3>CV</h3>
-        <img class="cv-image" src="<?php echo $student['cv']; ?>" alt="CV" width = "100">
-        
-    <?php } ?>
+                <!-- Display CV for both admin and company -->
+                <h3>CV</h3>
+                <img src="<?php echo $student['cv']; ?>" alt="CV" width="100">
+            <?php } ?>
 
     <div class="go-back-link">
-        <a href="admin.php">Go Back to Applications</a>
+        <?php if ($_SESSION['role'] === 'admin') { ?>
+            <!-- Redirect back to admin dashboard -->
+            <a href="admin_dashboard.php">Go Back to Applications</a>
+        <?php } elseif ($_SESSION['role'] === 'company') { ?>
+            <!-- Redirect back to company dashboard -->
+            <a href="company_dashboard.php">Go Back to Dashboard</a>
+        <?php } ?>
     </div>
 </body>
 </html>
