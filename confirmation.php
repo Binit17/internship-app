@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 
@@ -22,6 +21,11 @@ $internship_id = $_POST['internship_id'];
 //$application_date = date("Y-m-d");
 $status = "pending";
 
+// Fetch internship details from the database
+$sql = "SELECT * FROM internships WHERE internship_id = '$internship_id'";
+$result = mysqli_query($conn, $sql);
+$internship = mysqli_fetch_assoc($result);
+
 // Store the application details in the session for final submission
 $_SESSION['confirmation_details'] = [
     'student_id' => $student_id,
@@ -44,6 +48,14 @@ $_SESSION['confirmation_details'] = [
         <li><strong>Internship ID:</strong> <?php echo $internship_id; ?></li>
         <!-- <li><strong>Application Date:</strong> <?php //echo $application_date; ?></li> -->
         <li><strong>Status:</strong> <?php echo $status; ?></li>
+        <li><strong>Title:</strong> <?php echo $internship['title']; ?></li>
+        <li><strong>Company Name:</strong> <?php echo $internship['company_name']; ?></li>
+        <li><strong>Description:</strong> <?php echo $internship['description']; ?></li>
+        <li><strong>Start Date:</strong> <?php echo $internship['start_date']; ?></li>
+        <li><strong>End Date:</strong> <?php echo $internship['end_date']; ?></li>
+        <li><strong>Duration:</strong> <?php echo $internship['duration']; ?></li>
+        <li><strong>Salary:</strong> <?php echo $internship['salary']; ?></li>
+        <li><strong>Location:</strong> <?php echo $internship['location']; ?></li>
     </ul>
 
     <p>Are you sure you want to apply for this internship?</p>

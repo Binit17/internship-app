@@ -54,6 +54,6 @@ else
         <p><?php echo $error; ?></p>
     <?php } ?>
     <br>
-    <a href="index.php">Back to Internship List</a>
+    <a href="index.php">Back to Dashboard</a>
 </body>
 </html>
