@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <tr>
             <th>Application ID</th>
             <th>Student Name</th>
-            <!-- <th>Company Name</th> -->
+            <th>Company Name</th>
             <th>Internship Title</th>
             <th>Application Date</th>
             <th>Status</th>
