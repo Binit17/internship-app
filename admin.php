@@ -10,11 +10,14 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
     exit();
 }
 
+
+
 // Fetch internship applications from the database
-$sql = "SELECT applications.*, students.name, internships.title
+$sql = "SELECT applications.*, students.name, internships.title, company.name AS company_name
         FROM applications
         INNER JOIN students ON applications.student_id = students.student_id
         INNER JOIN internships ON applications.internship_id = internships.internship_id
+        INNER JOIN company ON applications.company_id = company.company_id
         ORDER BY application_id DESC";
 $result = mysqli_query($conn, $sql);
 $applications = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -114,6 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <tr>
             <th>Application ID</th>
             <th>Student Name</th>
+            <!-- <th>Company Name</th> -->
             <th>Internship Title</th>
             <th>Application Date</th>
             <th>Status</th>
@@ -123,6 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <tr>
                 <td><?php echo $application['application_id']; ?></td>
                 <td><?php echo $application['name']; ?></td>
+                <td><?php echo $application['company_name']; ?></td>
                 <td><?php echo $application['title']; ?></td>
                 <td><?php echo $application['application_date']; ?></td>
                 <td>
@@ -145,9 +150,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="logout-link">
         <a href="logout.php">Logout</a>
     </div>
-    <div class="add-internship-link">
+    <!-- now admin cannot add internships -->
+    <!-- <div class="add-internship-link">
         <a href="add_internship.php">Add New Internship</a>
-    </div>
+    </div> -->
 </body>
 </html>
 

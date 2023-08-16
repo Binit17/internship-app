@@ -69,7 +69,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
           <!-- <li><a href="#services">Services</a></li> -->
           <!-- <li><a href="#portfolio">Portfolio</a></li> -->
           <li><a href="admin.php">Applications</a></li>
-          <li><a href="add_internship.php">Add Internships</a></li>
+          <!-- <li><a href="add_internship.php">Add Internships</a></li> -->
           <li><a href="logout.php">Logout</a></li>
           <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>

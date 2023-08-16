@@ -130,6 +130,8 @@ while ($internship = $internshipsResult->fetch_assoc()) {
             <th>Internship Title</th>
             <th>Application Date</th>
             <th>Status</th>
+            <th>action</th>
+
         </tr>
         <?php foreach ($applications as $application) { ?>
             <tr>

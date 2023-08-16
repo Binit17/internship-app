@@ -26,9 +26,14 @@ $internship_id = $_POST['internship_id'];
 // $application_date = date("y-m-d");
 $status = "pending";
 
+$querytobringcompanyid = "SELECT * FROM internships WHERE internship_id ='$internship_id'";
+$result = mysqli_query($conn, $querytobringcompanyid);
+$company = mysqli_fetch_assoc($result);
+$company_id = $company['company_id'];
+
 //insert the application into the database
-$sql = "INSERT INTO applications (student_id,internship_id,status)
-        VALUES ('$student_id','$internship_id','$status')";
+$sql = "INSERT INTO applications (student_id,internship_id,status,company_id)
+        VALUES ('$student_id','$internship_id','$status','$company_id')";
 
 if (mysqli_query($conn, $sql))
 {

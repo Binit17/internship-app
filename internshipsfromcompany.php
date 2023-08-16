@@ -1,6 +1,8 @@
 <?php
 session_start();
-
+//error finding
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 // Check if the user is logged in as a company
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'company') {
     header("Location: login.php");
@@ -9,6 +11,8 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
 
 // Include the database configuration file
 require_once 'config.php';
+
+
 
 // Retrieve company information from the database
 $user_id = $_SESSION['user_id'];
@@ -41,7 +45,7 @@ $internshipsResult = $internshipsStmt->get_result();
     <title>Internships from Company</title>
 </head>
 <body>
-    <h2>Internships from <?php echo $companyInfo['company_name']; ?></h2>
+    <h2>Internships from <?php echo $companyInfo['name']; ?></h2>
     <ul>
         <?php while ($internship = $internshipsResult->fetch_assoc()) { ?>
             <li>
@@ -52,6 +56,9 @@ $internshipsResult = $internshipsStmt->get_result();
                 Duration: <?php echo $internship['duration']; ?><br>
                 Salary: <?php echo $internship['salary']; ?><br>
                 Location: <?php echo $internship['location']; ?><br>
+                Status: <?php echo ucfirst($internship['status']); ?><br>
+                <a href="edit_internship.php?internship_id=<?php echo $internship['internship_id']; ?>">Edit</a>
+                <a href="delete_internship.php?internship_id=<?php echo $internship['internship_id']; ?>">Delete</a>
             </li>
             <br>
         <?php } ?>

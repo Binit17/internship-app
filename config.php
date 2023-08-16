@@ -20,4 +20,5 @@ if(!$conn)
 
 //if there are any other global variables or configurations , define here.
 global $student_id;
+
 ?>
